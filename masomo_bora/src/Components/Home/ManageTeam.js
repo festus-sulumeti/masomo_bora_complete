@@ -4,9 +4,9 @@ import '../../Style/Home/ManageTeam.css';
 
 // Sample data for team members
 const sampleTeamMembers = [
-  { id: 1, name: 'John Doe', position: 'Manager' },
-  { id: 2, name: 'Jane Smith', position: 'Developer' },
-  { id: 3, name: 'Bob Johnson', position: 'Designer' },
+  { id: 1, name: 'Mary wangui', position: 'Math Teacher' },
+  { id: 2, name: 'Sasha Tamara', position: 'Kiswahili Teacher' },
+  { id: 3, name: 'Alex Wambugua', position: 'English Teacher' },
 ];
 
 const ManageTeam = () => {
