@@ -13,3 +13,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 database = Database(DATABASE_URL)
 
 Base = declarative_base()
+
+# Add the new Student model to the Base
+from .models import Student
+Base.metadata.create_all(bind=engine)
