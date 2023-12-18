@@ -1,9 +1,8 @@
-// ProfileForm.js
 import React, { useState } from 'react';
 import '../../Style/Home/StudentForm.css';
+import api from '../../services/api';  // Assuming the correct path to your api.js file
 
 const StudentForm = () => {
-  // Example state for form fields
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -11,17 +10,20 @@ const StudentForm = () => {
     phoneNumber: '',
   });
 
-  // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your logic to handle the form submission, e.g., send data to the server
-    console.log('Form submitted:', formData);
+    try {
+      // Use the api.createTeam function to send data to the server
+      await api.createStudent(formData);
+      console.log('Form submitted:', formData);
+    } catch (error) {
+      console.error('Error submitting form:', error.message);
+    }
   };
 
   return (
