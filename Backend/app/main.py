@@ -1,12 +1,35 @@
 # backend/app/main.py
 
-from fastapi import FastAPI, HTTPException, Depends
+# from fastapi import FastAPI, HTTPException, Depends
+# from sqlalchemy.orm import Session
+# from Backend.app import crud
+# from Backend.app.database import engine, SessionLocal
+# from Backend.app import models
+
+# app = FastAPI()
+
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from Backend.app import crud
 from Backend.app.database import engine, SessionLocal
 from Backend.app import models
 
 app = FastAPI()
+
+# CORS configuration
+origins = [
+    "http://localhost",
+    "http://localhost:3000",  
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency to get the database session
 def get_db():
@@ -36,6 +59,11 @@ def read_team_info(db: Session = Depends(get_db)):
 
     # Return the processed data
     return {"team_data": team_data}
+
+# Route to create a new student
+@app.post("/students/", response_model=None)
+def create_student(student_data: dict, db: Session = Depends(get_db)):
+    return crud.create_student(db=db, **student_data)
 
 @app.get("/Home/StudentForm")
 def read_student_form(db: Session = Depends(get_db)):

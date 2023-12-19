@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../Style/Home/StudentForm.css';
-import api from '../../services/api';  // Assuming the correct path to your api.js file
+import api from '../../services/api';  
 
 const StudentForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,9 @@ const StudentForm = () => {
     phoneNumber: '',
   });
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -17,12 +20,21 @@ const StudentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+
     try {
+      console.log('Form data:', formData);
+
+      const response = await api.createStudent(formData);
       
-      await api.createStudent(formData);
+      console.log('API Response:', response);
       console.log('Form submitted:', formData);
     } catch (error) {
       console.error('Error submitting form:', error.message);
+      setError('An error occurred while submitting the form. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,7 +86,11 @@ const StudentForm = () => {
           />
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Submitting...' : 'Submit'}
+        </button>
+
+        {error && <div className="error-message">{error}</div>}
       </form>
     </div>
   );
