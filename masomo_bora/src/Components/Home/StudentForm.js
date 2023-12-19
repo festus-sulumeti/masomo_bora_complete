@@ -18,7 +18,7 @@ const StudentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Use the api.createTeam function to send data to the server
+      
       await api.createStudent(formData);
       console.log('Form submitted:', formData);
     } catch (error) {
