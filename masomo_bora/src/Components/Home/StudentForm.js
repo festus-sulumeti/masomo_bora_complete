@@ -23,19 +23,6 @@ const StudentForm = () => {
     setLoading(true);
     setError(null);
 
-    try {
-      console.log('Form data:', formData);
-
-      const response = await api.createStudent(formData);
-      
-      console.log('API Response:', response);
-      console.log('Form submitted:', formData);
-    } catch (error) {
-      console.error('Error submitting form:', error.message);
-      setError('An error occurred while submitting the form. Please try again.');
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
