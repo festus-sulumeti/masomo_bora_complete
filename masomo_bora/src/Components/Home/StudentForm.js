@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../Style/Home/StudentForm.css';
-import api from '../../services/api';  
+
 
 const StudentForm = () => {
   const [formData, setFormData] = useState({
@@ -23,6 +23,7 @@ const StudentForm = () => {
     setLoading(true);
     setError(null);
 
+   
   };
 
   return (
